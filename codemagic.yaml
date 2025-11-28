@@ -26,11 +26,11 @@ workflows:
           if [ ! -f gradle/wrapper/gradle-wrapper.jar ]; then
             echo "Descargando gradle-wrapper.jar..."
             # Método 1: Descargar desde GitHub releases
-            curl -L -f https://github.com/gradle/gradle/raw/v8.3.0/gradle/wrapper/gradle-wrapper.jar -o gradle/wrapper/gradle-wrapper.jar || \
+            curl -L -f https://github.com/gradle/gradle/raw/v8.0.2/gradle/wrapper/gradle-wrapper.jar -o gradle/wrapper/gradle-wrapper.jar || \
             # Método 2: Descargar desde Maven Central (versión específica)
-            curl -L -f https://repo1.maven.org/maven2/org/gradle/gradle-wrapper/8.3/gradle-wrapper-8.3.jar -o gradle/wrapper/gradle-wrapper.jar || \
+            curl -L -f https://repo1.maven.org/maven2/org/gradle/gradle-wrapper/8.0/gradle-wrapper-8.0.jar -o gradle/wrapper/gradle-wrapper.jar || \
             # Método 3: Usar gradle wrapper command si está disponible
-            (command -v gradle >/dev/null 2>&1 && gradle wrapper --gradle-version 8.3) || \
+            (command -v gradle >/dev/null 2>&1 && gradle wrapper --gradle-version 8.0) || \
             echo "No se pudo descargar gradle-wrapper.jar, pero continuaremos"
           fi
           # Verificar y dar permisos a gradlew
@@ -41,7 +41,7 @@ workflows:
             echo "gradlew no encontrado, generando wrapper..."
             # Generar wrapper usando gradle si está disponible
             if command -v gradle &> /dev/null; then
-              gradle wrapper --gradle-version 8.3
+              gradle wrapper --gradle-version 8.0
             fi
             chmod +x gradlew || true
           fi
