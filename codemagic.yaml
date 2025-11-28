@@ -15,6 +15,7 @@ workflows:
           npm install --legacy-peer-deps
       - name: Set up Android SDK
         script: |
+          mkdir -p $CM_BUILD_DIR/android
           echo "sdk.dir=$ANDROID_SDK_ROOT" > $CM_BUILD_DIR/android/local.properties
       - name: Setup Gradle Wrapper
         script: |
