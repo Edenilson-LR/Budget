@@ -1,6 +1,6 @@
 # SmartBudget
 
-Aplicación de presupuesto personal desarrollada en Flutter.
+Aplicación de presupuesto personal desarrollada en React (web) y React Native (móvil).
 
 ## Características
 
@@ -15,89 +15,55 @@ Aplicación de presupuesto personal desarrollada en Flutter.
 
 ## Requisitos
 
-- Flutter SDK >= 3.0.0
-- Dart SDK >= 3.0.0
+- Node.js >= 18.0.0
+- npm o yarn
 
 ## Instalación
 
-1. Clona el repositorio
-2. Instala las dependencias:
+1. Instala las dependencias:
 ```bash
-flutter pub get
+npm install
 ```
 
-3. Ejecuta la aplicación:
+## Ejecutar la aplicación
+
+### Web (React)
 ```bash
-flutter run
+npm run web
+```
+
+### Android (React Native)
+```bash
+npm run android
+```
+
+### iOS (React Native)
+```bash
+npm run ios
 ```
 
 ## Estructura del Proyecto
 
 ```
-lib/
-├── main.dart                 # Punto de entrada
-├── models/                   # Modelos de datos
-│   ├── app_data.dart
-│   ├── transaction.dart
-│   ├── account.dart
-│   ├── category.dart
-│   └── currency.dart
-├── screens/                  # Pantallas principales
-│   ├── home_screen.dart
-│   ├── home_view.dart
-│   ├── transactions_view.dart
-│   ├── budget_view.dart
-│   ├── settings_view.dart
-│   ├── add_transaction_modal.dart
-│   └── edit_item_modal.dart
-├── widgets/                  # Widgets reutilizables
-│   ├── custom_card.dart
-│   ├── custom_button.dart
-│   └── custom_input.dart
-├── services/                # Servicios
-│   └── storage_service.dart
-├── providers/               # State management
-│   └── app_data_provider.dart
-└── utils/                   # Utilidades
-    └── formatters.dart
+src/
+├── models/              # Modelos de datos TypeScript
+├── services/            # Servicios (almacenamiento, etc)
+├── context/             # React Context (state management)
+├── components/          # Componentes reutilizables
+├── screens/             # Pantallas principales
+├── utils/               # Utilidades
+└── App.tsx              # Componente principal
 ```
-
-## Uso
-
-### Agregar Transacciones
-- Toca el botón flotante (+) en cualquier pantalla principal
-- Selecciona tipo (Ingreso/Gasto)
-- Completa los campos requeridos
-- Guarda la transacción
-
-### Gestionar Categorías
-- Ve a Configuración > Categorías
-- Toca "Agregar Nueva" para crear una categoría
-- Toca el ícono de editar para modificar
-- Toca el ícono de eliminar para borrar (si no tiene transacciones asociadas)
-
-### Gestionar Cuentas
-- Ve a Configuración > Cuentas
-- Toca "Agregar Nueva" para crear una cuenta
-- Edita o elimina cuentas existentes
-
-### Gestionar Monedas
-- Ve a Configuración > Monedas
-- Agrega nuevas monedas o edita las existentes
-
-### Ver Gráficos
-- Ve a la pestaña "Presupuesto"
-- Cambia entre gráficos de pie, barras y área
-- Visualiza el progreso de tus presupuestos por categoría
 
 ## Tecnologías Utilizadas
 
-- Flutter
-- Provider (State Management)
-- SharedPreferences (Almacenamiento local)
-- fl_chart (Gráficos)
-- intl (Formateo de fechas y monedas)
-- csv (Exportación)
+- React (Web)
+- React Native (Móvil)
+- TypeScript
+- React Navigation
+- AsyncStorage (Almacenamiento local)
+- React Native Chart Kit (Gráficos)
+- date-fns (Formateo de fechas)
 
 ## Licencia
 
