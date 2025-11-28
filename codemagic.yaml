@@ -4,11 +4,10 @@ workflows:
     max_build_duration: 120
     instance_type: mac_mini_m1
     environment:
-      groups:
-        # Agrega tus grupos de variables de entorno aquí si es necesario
-        # Ejemplo para code signing:
-        # - keystore_credentials
-        # - google_play_credentials
+      # Para agregar grupos de variables de entorno, descomenta y agrega:
+      # groups:
+      #   - keystore_credentials
+      #   - google_play_credentials
       vars:
         # Variables de entorno opcionales
         PACKAGE_NAME: "com.example.smartbudget"
