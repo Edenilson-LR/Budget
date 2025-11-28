@@ -17,6 +17,10 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
 
     namespace "com.smartbudget"
+    
+    buildFeatures {
+        buildConfig true
+    }
     defaultConfig {
         applicationId "com.smartbudget"
         minSdkVersion rootProject.ext.minSdkVersion
