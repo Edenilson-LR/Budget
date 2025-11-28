@@ -2,7 +2,7 @@
   "name": "smartbudget",
   "version": "1.0.0",
   "description": "Aplicación de presupuesto personal",
-  "main": "index.js",
+  "main": "src/index.tsx",
   "scripts": {
     "web": "react-scripts start",
     "web:build": "react-scripts build",
