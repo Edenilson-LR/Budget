@@ -20,24 +20,38 @@ workflows:
       - name: Setup Gradle Wrapper
         script: |
           cd android
-          # Verificar que el directorio android existe
-          pwd
-          ls -la
+          # Crear directorio wrapper si no existe
+          mkdir -p gradle/wrapper
+          # Descargar gradle-wrapper.jar si no existe
+          if [ ! -f gradle/wrapper/gradle-wrapper.jar ]; then
+            echo "Descargando gradle-wrapper.jar..."
+            # Método 1: Descargar desde GitHub releases
+            curl -L -f https://github.com/gradle/gradle/raw/v8.3.0/gradle/wrapper/gradle-wrapper.jar -o gradle/wrapper/gradle-wrapper.jar || \
+            # Método 2: Descargar desde Maven Central (versión específica)
+            curl -L -f https://repo1.maven.org/maven2/org/gradle/gradle-wrapper/8.3/gradle-wrapper-8.3.jar -o gradle/wrapper/gradle-wrapper.jar || \
+            # Método 3: Usar gradle wrapper command si está disponible
+            (command -v gradle >/dev/null 2>&1 && gradle wrapper --gradle-version 8.3) || \
+            echo "No se pudo descargar gradle-wrapper.jar, pero continuaremos"
+          fi
           # Verificar y dar permisos a gradlew
           if [ -f gradlew ]; then
             chmod +x gradlew
             echo "gradlew encontrado y permisos configurados"
           else
-            echo "gradlew no encontrado, intentando generar..."
-            # Intentar generar el wrapper
+            echo "gradlew no encontrado, generando wrapper..."
+            # Generar wrapper usando gradle si está disponible
             if command -v gradle &> /dev/null; then
               gradle wrapper --gradle-version 8.3
-              chmod +x gradlew
-            else
-              echo "Error: gradlew no existe y gradle no está disponible"
-              exit 1
             fi
+            chmod +x gradlew || true
           fi
+          # Verificar que gradle-wrapper.jar existe
+          if [ ! -f gradle/wrapper/gradle-wrapper.jar ]; then
+            echo "Error: gradle-wrapper.jar no se pudo obtener"
+            ls -la gradle/wrapper/ || echo "Directorio wrapper no existe"
+            exit 1
+          fi
+          echo "Gradle wrapper configurado correctamente"
       - name: Build Android APK
         script: |
           cd android

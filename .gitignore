@@ -63,10 +63,11 @@ local.properties
 .cxx/
 *.keystore
 !debug.keystore
-# Mantener gradlew en el repositorio
+# Mantener archivos necesarios de Gradle en el repositorio
 !android/gradlew
 !android/gradlew.bat
 !android/gradle/wrapper/gradle-wrapper.jar
+!android/gradle/wrapper/gradle-wrapper.properties
 
 # Flutter (to be removed)
 lib/
