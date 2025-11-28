@@ -1,6 +1,6 @@
 workflows:
-  android-workflow:
-    name: Android Workflow - SmartBudget
+  android-workflow-aab:
+    name: Android App Bundle - SmartBudget
     max_build_duration: 120
     instance_type: mac_mini_m1
     environment:
@@ -9,7 +9,6 @@ workflows:
       #   - keystore_credentials
       #   - google_play_credentials
       vars:
-        # Variables de entorno opcionales
         PACKAGE_NAME: "com.example.smartbudget"
         APP_NAME: "SmartBudget"
       flutter: stable
@@ -25,18 +24,8 @@ workflows:
       - name: Build Android App Bundle
         script: |
           flutter build appbundle --release
-      # Alternativa: Descomenta para construir APK en lugar de AAB
-      # - name: Build Android APK
-      #   script: |
-      #     flutter build apk --release
-      # - name: Build Android APK (Split per ABI)
-      #   script: |
-      #     flutter build apk --split-per-abi --release
     artifacts:
       - build/app/outputs/**/*.aab
-      # Descomenta si construyes APK
-      # - build/app/outputs/**/*.apk
-      # - build/app/outputs/**/apk/**/*.apk
     publishing:
       email:
         recipients:
@@ -45,9 +34,40 @@ workflows:
           success: true
           failure: true
       # Configuración opcional para Google Play Store
-      # Requiere configurar las credenciales en Codemagic UI
       # google_play:
       #   credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
-      #   track: alpha  # Opciones: internal, alpha, beta, production
+      #   track: alpha
       #   submit_as_draft: true
+
+  android-workflow-apk:
+    name: Android APK - SmartBudget
+    max_build_duration: 120
+    instance_type: mac_mini_m1
+    environment:
+      vars:
+        PACKAGE_NAME: "com.example.smartbudget"
+        APP_NAME: "SmartBudget"
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+    scripts:
+      - name: Get Flutter dependencies
+        script: |
+          flutter pub get
+      - name: Set up local.properties
+        script: |
+          echo "flutter.sdk=$HOME/programs/flutter" > $CM_BUILD_DIR/android/local.properties
+      - name: Build Android APK
+        script: |
+          flutter build apk --release
+    artifacts:
+      - build/app/outputs/**/*.apk
+      - build/app/outputs/**/apk/**/*.apk
+    publishing:
+      email:
+        recipients:
+          - user@example.com  # Reemplaza con tu email
+        notify:
+          success: true
+          failure: true
 
