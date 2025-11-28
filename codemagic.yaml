@@ -20,10 +20,23 @@ workflows:
       - name: Setup Gradle Wrapper
         script: |
           cd android
-          chmod +x gradlew || true
-          # Asegurar que el wrapper existe
-          if [ ! -f gradle/wrapper/gradle-wrapper.jar ]; then
-            echo "Gradle wrapper jar not found, will be downloaded during build"
+          # Verificar que el directorio android existe
+          pwd
+          ls -la
+          # Verificar y dar permisos a gradlew
+          if [ -f gradlew ]; then
+            chmod +x gradlew
+            echo "gradlew encontrado y permisos configurados"
+          else
+            echo "gradlew no encontrado, intentando generar..."
+            # Intentar generar el wrapper
+            if command -v gradle &> /dev/null; then
+              gradle wrapper --gradle-version 8.3
+              chmod +x gradlew
+            else
+              echo "Error: gradlew no existe y gradle no está disponible"
+              exit 1
+            fi
           fi
       - name: Build Android APK
         script: |

@@ -63,6 +63,10 @@ local.properties
 .cxx/
 *.keystore
 !debug.keystore
+# Mantener gradlew en el repositorio
+!android/gradlew
+!android/gradlew.bat
+!android/gradle/wrapper/gradle-wrapper.jar
 
 # Flutter (to be removed)
 lib/
@@ -71,5 +75,5 @@ pubspec.yaml
 .flutter-plugins
 .flutter-plugins-dependencies
 .packages
-android/
+# android/ - Ya no ignoramos android porque es necesario para React Native
 ios/
